@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Drishti 💖</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Open This Please 💖</title>
 
   <style>
     * {
@@ -22,13 +22,13 @@
     }
 
     .card {
-      background: #ffffff;
+      background: #fff;
       width: 90%;
       max-width: 360px;
       padding: 30px 20px;
       border-radius: 20px;
       text-align: center;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
 
     h1 {
@@ -59,13 +59,13 @@
       transition: all 0.25s ease;
     }
 
-    #yes {
+    .yes {
       background: #ff4d6d;
       color: white;
       left: 0;
     }
 
-    #no {
+    .no {
       background: #e0e0e0;
       color: #333;
       right: 0;
@@ -88,21 +88,20 @@
 
   <div class="card" id="card">
     <h1>Drishti, will you be my Valentine? 💖</h1>
-
     <div class="buttons">
-      <button id="yes">Yes 💕</button>
-      <button id="no">No 🙃</button>
+      <button class="yes" onclick="nextStep()">Yes 💕</button>
+      <button class="no" id="noBtn">No 🙃</button>
     </div>
   </div>
 
   <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const card = document.getElementById("card");
-
+    let step = 1;
     let scale = 1;
 
-    // 😈 No button shrinks every time
+    const card = document.getElementById("card");
+    const noBtn = document.getElementById("noBtn");
+
+    // 😈 No button behavior
     noBtn.addEventListener("click", () => {
       scale -= 0.15;
       if (scale < 0.3) scale = 0.3;
@@ -113,19 +112,45 @@
       noBtn.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
     });
 
-    // 💌 Custom personal message
-    yesBtn.addEventListener("click", () => {
-      card.innerHTML = `
-        <div class="hearts">💖💖💖</div>
-        <h1>Drishti 🥰</h1>
-        <p>
-          You, Just Made My day!!!!!! You know I’m bad at balancing things,<br>
-          but I’m good at loving you ❤️
-        </p>
-      `;
-    });
+    function nextStep() {
+      step++;
+
+      if (step === 2) {
+        card.innerHTML = `
+          <h1>Are you REALLY sure? 😏</h1>
+          <div class="buttons">
+            <button class="yes" onclick="nextStep()">Hmm… maybe 💭</button>
+            <button class="no" onclick="shrinkNo(this)">Still no 😐</button>
+          </div>
+        `;
+      }
+
+      else if (step === 3) {
+        card.innerHTML = `
+          <h1>Last chance 👀</h1>
+          <div class="buttons">
+            <button class="yes" onclick="nextStep()">Okay fine 😌</button>
+            <button class="no" onclick="shrinkNo(this)">Nope 🙄</button>
+          </div>
+        `;
+      }
+
+      else {
+        card.innerHTML = `
+          <div class="hearts">💖💖💖</div>
+          <h1>Drishti 🥰</h1>
+          <p>
+            YAYYYY!!!! You just made my day! You know I’m bad at balancing things,<br>
+            but I’m good at loving you ❤️
+          </p>
+        `;
+      }
+    }
+
+    function shrinkNo(btn) {
+      btn.style.transform = "scale(0.7)";
+    }
   </script>
 
 </body>
 </html>
-
