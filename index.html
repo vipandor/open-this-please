@@ -1,156 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Open This Please 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Me 🎁</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
 
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#ffe1ea,#ffd6f3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
 
-    .card {
-      background: #fff;
-      width: 90%;
-      max-width: 360px;
-      padding: 30px 20px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
+.card{
+  background:white;
+  width:90%;
+  max-width:360px;
+  padding:30px 20px;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
 
-    h1 {
-      font-size: 22px;
-      margin-bottom: 25px;
-      color: #333;
-    }
+h1{
+  font-size:22px;
+  margin-bottom:25px;
+  color:#333;
+}
 
-    p {
-      font-size: 16px;
-      color: #555;
-      line-height: 1.5;
-    }
+p{
+  font-size:16px;
+  color:#555;
+  line-height:1.5;
+}
 
-    .buttons {
-      position: relative;
-      height: 70px;
-      margin-top: 20px;
-    }
+button{
+  padding:14px 26px;
+  font-size:16px;
+  border:none;
+  border-radius:30px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
 
-    button {
-      padding: 14px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      position: absolute;
-      transition: all 0.25s ease;
-    }
+button:active{
+  transform:scale(0.95);
+}
 
-    .yes {
-      background: #ff4d6d;
-      color: white;
-      left: 0;
-    }
+.confetti, .balloon{
+  position:absolute;
+  font-size:22px;
+  animation:fall linear infinite;
+}
 
-    .no {
-      background: #e0e0e0;
-      color: #333;
-      right: 0;
-    }
-
-    .hearts {
-      font-size: 28px;
-      margin-bottom: 10px;
-      animation: pop 0.6s ease;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.6); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-  </style>
+@keyframes fall{
+  0%{transform:translateY(-10vh);}
+  100%{transform:translateY(110vh);}
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card" id="card">
-    <h1>Drishti, will you be my Valentine? 💖</h1>
-    <div class="buttons">
-      <button class="yes" onclick="nextStep()">Yes 💕</button>
-      <button class="no" id="noBtn">No 🙃</button>
-    </div>
-  </div>
+<div class="card" id="card">
+  <h1>Hey you 👀</h1>
+  <p>I made a tiny surprise for you…</p>
+  <button onclick="nextStep()">Open it 🎁</button>
+</div>
 
-  <script>
-    let step = 1;
-    let scale = 1;
+<script>
+let step = 0;
+const card = document.getElementById("card");
 
-    const card = document.getElementById("card");
-    const noBtn = document.getElementById("noBtn");
+function nextStep(){
+  step++;
 
-    // 😈 No button behavior
-    noBtn.addEventListener("click", () => {
-      scale -= 0.15;
-      if (scale < 0.3) scale = 0.3;
+  if(step===1){
+    card.innerHTML=`
+      <h1>But first…</h1>
+      <p>Promise you won’t skip? 😏</p>
+      <button onclick="nextStep()">Promise 🤞</button>
+    `;
+  }
 
-      const x = Math.random() * 140 - 70;
-      const y = Math.random() * 120 - 60;
+  else if(step===2){
+    card.innerHTML=`
+      <h1>Good 😌</h1>
+      <p>Because you deserve nice things.</p>
+      <button onclick="nextStep()">Continue ✨</button>
+    `;
+  }
 
-      noBtn.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    });
+  else if(step===3){
+    card.innerHTML=`
+      <h1>One more thing…</h1>
+      <p>I’m always around if you need me.</p>
+      <button onclick="nextStep()">Okay 🫶</button>
+    `;
+  }
 
-    function nextStep() {
-      step++;
+  else{
+    card.innerHTML=`
+      <h1>Happy Birthday Cutu 🎂</h1>
+      <p><b>Cutest is you, always too 😌</b></p>
+    `;
+    startCelebration();
+  }
+}
 
-      if (step === 2) {
-        card.innerHTML = `
-          <h1>Are you REALLY sure? 😏</h1>
-          <div class="buttons">
-            <button class="yes" onclick="nextStep()">Hmm… maybe 💭</button>
-            <button class="no" onclick="shrinkNo(this)">Still no 😐</button>
-          </div>
-        `;
-      }
+function startCelebration(){
+  for(let i=0;i<30;i++){
+    createEmoji("🎉");
+    createEmoji("🎈");
+  }
+}
 
-      else if (step === 3) {
-        card.innerHTML = `
-          <h1>Last chance 👀</h1>
-          <div class="buttons">
-            <button class="yes" onclick="nextStep()">Okay fine 😌</button>
-            <button class="no" onclick="shrinkNo(this)">Nope 🙄</button>
-          </div>
-        `;
-      }
+function createEmoji(symbol){
+  const el=document.createElement("div");
+  el.classList.add("confetti");
+  el.innerText=symbol;
+  el.style.left=Math.random()*100+"vw";
+  el.style.animationDuration=(Math.random()*3+3)+"s";
+  document.body.appendChild(el);
 
-      else {
-        card.innerHTML = `
-          <div class="hearts">💖💖💖</div>
-          <h1>Drishti 🥰</h1>
-          <p>
-            YAYYYY!!!! You just made my day! You know I’m bad at balancing things,<br>
-            but I’m good at loving you ❤️
-          </p>
-        `;
-      }
-    }
-
-    function shrinkNo(btn) {
-      btn.style.transform = "scale(0.7)";
-    }
-  </script>
+  setTimeout(()=>{el.remove();},6000);
+}
+</script>
 
 </body>
 </html>
